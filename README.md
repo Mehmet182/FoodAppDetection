@@ -62,11 +62,12 @@ cd desktop_app
 flutter run -d windows
 ```
 
-### Giriş Bilgileri
+### Demo Hesapları
 
-| Email | Şifre |
-|-------|-------|
-| admin@example.com | admin123 |
+| Rol | Email | Şifre |
+|-----|-------|-------|
+| 👨‍💼 Admin | mehmet@gmail.com | mehmet123 |
+| 👤 User | emre@gmail.com | emre123 |
 
 ### Özellikler
 - � Dashboard - İstatistikler
