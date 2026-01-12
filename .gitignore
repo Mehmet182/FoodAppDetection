@@ -1,6 +1,4 @@
-# ==========================================
-# Python
-# ==========================================
+# Geçici dosyalar
 __pycache__/
 *.pyc
 *.pyo
@@ -12,110 +10,45 @@ __pycache__/
 dist/
 build/
 *.spec
-venv/
-.venv/
-env/
-.env/
 
-# ==========================================
-# Database
-# ==========================================
+# Veritabanı
 *.db
 local_data.db
 
-# ==========================================
-# Firebase credentials (sensitive)
-# ==========================================
+# Firebase credentials
 firebase_credentials.json
-shared/firebase_credentials.json
-!firebase_credentials.json.template
-!shared/firebase_credentials.json.template
 
-# ==========================================
-# Model files (too large for Git)
-# ==========================================
-*.pt
-*.onnx
-*.weights
-*.tflite
+# Uploads
+uploads/*
+!uploads/.gitkeep
 
-# ==========================================
-# IDE & Editors
-# ==========================================
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-*.iml
 
-# ==========================================
-# OS Generated
-# ==========================================
+# OS
 .DS_Store
 Thumbs.db
 desktop.ini
-ehthumbs.db
 
-# ==========================================
 # Logs
-# ==========================================
 *.log
-logs/
 
-# ==========================================
-# Flutter / Dart
-# ==========================================
-# Common
-.dart_tool/
-.packages
-.pub-cache/
-.pub/
-build/
-*.lock
+# Model dosyaları (boyut nedeniyle)
+*.pt
+*.onnx
+*.weights
 
-# Flutter plugins
-.flutter-plugins
-.flutter-plugins-dependencies
-
-# Desktop App
-desktop_app/.dart_tool/
-desktop_app/.idea/
-desktop_app/build/
-desktop_app/.flutter-plugins
-desktop_app/.flutter-plugins-dependencies
-desktop_app/local_storage/
-
-# Mobile App
-food_detection_flutter/.dart_tool/
-food_detection_flutter/.idea/
-food_detection_flutter/build/
-food_detection_flutter/.flutter-plugins
-food_detection_flutter/.flutter-plugins-dependencies
-food_detection_flutter/ios/Pods/
-food_detection_flutter/ios/.symlinks/
-food_detection_flutter/android/.gradle/
-food_detection_flutter/android/app/google-services.json
-
-# ==========================================
-# Build outputs
-# ==========================================
-detection_service/dist/
-detection_service/build/
-detection_service/*.spec
-
-# ==========================================
-# Uploads / Temp
-# ==========================================
-uploads/*
-!uploads/.gitkeep
-temp/
-tmp/
-
-# ==========================================
-# Other
-# ==========================================
-*.bak
-*.tmp
-.env
-.env.local
+# Flutter
+mobile/food_detection_flutter/.dart_tool/
+mobile/food_detection_flutter/.flutter-plugins
+mobile/food_detection_flutter/.flutter-plugins-dependencies
+mobile/food_detection_flutter/.packages
+mobile/food_detection_flutter/build/
+mobile/food_detection_flutter/ios/Pods/
+mobile/food_detection_flutter/ios/.symlinks/
+mobile/food_detection_flutter/android/.gradle/
+mobile/food_detection_flutter/android/app/google-services.json

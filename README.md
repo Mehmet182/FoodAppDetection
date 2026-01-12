@@ -1,152 +1,206 @@
-# 🍽️ Food Detection App
+# 🍽️ Yemek Tespit Uygulaması
 
-AI destekli yemek tespit uygulaması. **Windows Desktop** ve **Android** platformlarında çalışır.
-
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)
-
----
-
-## � Proje Yapısı
+## 📁 PROJE YAPISI
 
 ```
 food-detection-app/
-├── desktop_app/           # Windows Masaüstü Uygulaması (Admin Panel)
-├── food_detection_flutter/ # Android Mobil Uygulama
-├── detection_service/      # Python YOLO API
-└── shared/model/           # YOLO Model (best.pt)
+│
+├── 🖥️ desktop_app/              ← FLUTTER DESKTOP UYGULAMASI
+│   ├── lib/
+│   │   ├── database/            ← SQLite database
+│   │   ├── services/            ← Firebase, Sync, Detection
+│   │   ├── screens/             ← Login, Dashboard
+│   │   └── main.dart
+│   └── pubspec.yaml
+│
+├── 🔍 detection_service/        ← PYTHON YOLO SERVİSİ (Otomatik Başlar)
+│   ├── main.py
+│   └── requirements.txt
+│
+├── 📱 mobile/                   ← FLUTTER MOBİL APP
+│   └── food_detection_flutter/  ← Uzak sunucu ile çalışır
+│
+├── 🔗 shared/                   ← ORTAK KAYNAKLAR
+│   ├── firebase_credentials.json
+│   └── model/best.pt
+│
+└── 🚀 START_DESKTOP_APP.bat     ← Tek tıkla başlat
 ```
 
----
+## ✨ MİMARİ
 
-## ⚙️ Kurulum
+### Desktop App (Windows)
+- **Flutter Desktop**: Tam fonksiyonel admin paneli
+- **SQLite**: Yerel veritabanı (offline)
+- **Firebase**: Cloud sync (online)
+- **Python Detection**: Otomatik arka planda başlar (**terminal görünmez**)
 
-### 1. Model İndir
+### Mobile App
+- **Flutter Mobile**: Uzak sunucuya bağlanır
+- **Detection Service**: Uzaktaki API'yi kullanır
 
-📥 **[Model İndir (best.pt)](https://github.com/Mehmet182/FoodAppDetection/releases/download/v1.0.0/best.pt)**
+## 🚀 KULLANIM
 
-İndirdikten sonra `shared/model/` klasörüne koy.
+### Basit Başlatma (Önerilen)
 
-### 2. Python Bağımlılıkları
+```bash
+# Tek tıkla başlat:
+START_DESKTOP_APP.bat
+```
 
+> ✅ Detection service otomatik arka planda başlar
+> ✅ Terminal penceresi görünmez
+> ✅ Kullanıcı hiçbir şey yapmasına gerek yok
+
+### Manuel Başlatma (Geliştirme)
+
+```bash
+cd desktop_app
+flutter run -d windows
+```
+
+### İlk Kurulum
+
+```bash
+# 1. Detection service dependencies
+cd detection_service
+pip install -r requirements.txt
+
+# 2. Desktop app dependencies
+cd ../desktop_app
+flutter pub get
+```
+
+## 🔐 GİRİŞ
+
+**Varsayılan Admin:**
+- Email: `admin@example.com`
+- Şifre: `admin123`
+
+> Login ekranında giriş yapın. Detection service otomatik başlayacak.
+
+## 📊 ÖZELLİKLER
+
+- ✅ **Otomatik Başlatma**: Detection service kendiliğinden başlar
+- ✅ **Terminal Yok**: Python arka planda gizli çalışır
+- ✅ **Offline-First**: İnternet olmadan çalışır
+- ✅ **Auto-Sync**: Firebase ile otomatik senkronizasyon
+- ✅ **Dashboard**: İstatistikler ve servis durumu
+- ✅ **Kullanıcı Yönetimi**: Kullanıcı listesi
+- ✅ **Kayıtlar**: Yemek tespit kayıtları
+- ✅ **İtirazlar**: Kullanıcı itirazları
+
+## 🔧 TEKNİK DETAYLAR
+
+### Detection Service
+- **Port**: 8000 (localhost)
+- **Başlatma**: Otomatik (pythonw.exe - terminal yok)
+- **Durum**: Desktop app içinden kontrol edilebilir
+
+### Database
+```
+%USERPROFILE%\Documents\food_detection_app\local_data.db
+```
+
+Tablolar:
+- `users` - Kullanıcılar
+- `food_records` - Yemek kayıtları
+- `food_objections` - İtirazlar
+- `sync_queue` - Senkronizasyon
+
+### Firebase
+Credentials dosyası:
+```
+shared/firebase_credentials.json
+```
+
+## 📱 MOBİL UYGULAMA
+
+Mobil app **uzak sunucu** ile çalışır:
+
+```bash
+cd mobile/food_detection_flutter
+flutter run
+```
+
+> Mobil uygulama desktop detection service'i kullanmaz, kendi remote API'sini kullanır.
+
+## 🏗️ GELİŞTİRME
+
+### Debug Mode
+```bash
+cd desktop_app
+flutter run -d windows
+```
+
+### Release Build
+```bash
+cd desktop_app
+flutter build windows --release
+```
+
+EXE:
+```
+desktop_app/build/windows/x64/runner/Release/desktop_app.exe
+```
+
+## 🐛 SORUN ÇÖZME
+
+### Detection service çalışmıyor?
+
+1. **Python kurulu mu?**
+```bash
+python --version
+```
+
+2. **Dependencies yüklü mü?**
 ```bash
 cd detection_service
 pip install -r requirements.txt
 ```
 
-### 3. Flutter Bağımlılıkları
-
-```bash
-# Windows App
-cd desktop_app
-flutter pub get
-
-# Android App
-cd food_detection_flutter
-flutter pub get
+3. **Model dosyası var mı?**
+```
+shared/model/best.pt
 ```
 
----
-
-## 🖥️ Windows Uygulaması
-
-### Çalıştır
-
-```bash
-# Kolay yol - çift tıkla:
-START_DESKTOP_APP.bat
-
-# Veya manuel:
-cd desktop_app
-flutter run -d windows
-```
-
-### Demo Hesapları
-
-| Rol | Email | Şifre |
-|-----|-------|-------|
-| 👨‍💼 Admin | mehmet@gmail.com | mehmet123 |
-| 👤 User | emre@gmail.com | emre123 |
-
-### Özellikler
-- � Dashboard - İstatistikler
-- 👥 Kullanıcı Yönetimi
-- 🍽️ Yemek Kayıtları
-- ⚠️ İtiraz Yönetimi
-- 🔄 Firebase Senkronizasyon
-- 💾 Offline Çalışma (SQLite)
-
----
-
-## 📱 Android Uygulaması
-
-### Firebase Kurulumu
-
-1. [Firebase Console](https://console.firebase.google.com) → Yeni proje oluştur
-2. Android uygulaması ekle
-3. `google-services.json` indir
-4. `food_detection_flutter/android/app/` klasörüne koy
-
-### Çalıştır
-
-```bash
-cd food_detection_flutter
-flutter run
-```
-
-### Özellikler
-- 📷 Kamera ile Yemek Tespiti
-- 🖼️ Galeriden Resim Analizi
-- 💰 Otomatik Fiyat Hesaplama
-- ☁️ Firebase Entegrasyonu
-
----
-
-## 🔍 Detection API
-
+4. **Manuel başlatma**
 ```bash
 cd detection_service
 python main.py
 ```
 
-**Endpoint:** `http://localhost:8000`
+### Desktop app başlamıyor?
 
-| Method | URL | Açıklama |
-|--------|-----|----------|
-| GET | `/health` | Durum kontrolü |
-| POST | `/detect` | Yemek tespiti |
+```bash
+cd desktop_app
+flutter clean
+flutter pub get
+flutter run -d windows
+```
 
----
+### Firebase bağlanamıyor?
 
-## 🍽️ Desteklenen Yemekler
+```
+shared/firebase_credentials.json
+```
+Dosyasını kontrol edin.
 
-| Yemek | Fiyat | Kalori |
-|-------|-------|--------|
-| Ana Yemek | 55₺ | 450 |
-| Çorba | 35₺ | 150 |
-| Menemen | 40₺ | 200 |
-| Gözleme | 45₺ | 350 |
-| Patates Kızartması | 25₺ | 320 |
-| Ekmek | 5₺ | 80 |
-| Çay | 10₺ | 2 |
-| Su | 10₺ | 0 |
+## 🎯 FARKLAR
 
----
+### Önceki Versiyon ❌
+- Flask backend gerekiyordu
+- Tarayıcıda açılıyordu
+- Manuel başlatma gerekiyordu
+- Terminal pencereleri açılıyordu
 
-## �️ Teknolojiler
-
-| Bileşen | Teknoloji |
-|---------|-----------|
-| Desktop UI | Flutter Windows |
-| Mobile UI | Flutter Android |
-| API | FastAPI |
-| ML Model | YOLOv8 |
-| Local DB | SQLite |
-| Cloud | Firebase |
+### Yeni Versiyon ✅
+- Flask yok, sadece Flutter
+- Tarayıcı gerekmiyor
+- Otomatik başlatma
+- Terminal görünmüyor
+- Tek EXE dosyası
 
 ---
 
-## � Lisans
-
-Eğitim amaçlı proje.
+**v2.1** - Seamless Desktop Experience (No Terminal Windows)
