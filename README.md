@@ -80,9 +80,9 @@ flutter pub get
    ```
 2. Replace placeholder values with your Firebase service account credentials
 
-### 4. Add YOLO Model
+### 4. Download YOLO Model
 
-Download or train a YOLOv8 model and place it at:
+Download the pre-trained model from [GitHub Releases](https://github.com/Mehmet182/FoodAppDetection/releases) and place it at:
 ```
 shared/model/best.pt
 ```
@@ -110,7 +110,8 @@ flutter run
 
 | Role  | Email               | Password   |
 |-------|---------------------|------------|
-| Admin | admin@example.com   | admin123   |
+| Admin | mehmet@gmail.com    | mehmet123  |
+| User  | emre@gmail.com      | emre123    |
 
 ## 💻 Development
 
