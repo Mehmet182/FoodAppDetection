@@ -1,206 +1,213 @@
-# 🍽️ Yemek Tespit Uygulaması
+# 🍽️ Food Detection App
 
-## 📁 PROJE YAPISI
+AI-powered food detection application with desktop (Windows) and mobile (Android) clients. Uses YOLOv8 for real-time food recognition.
+
+## 📁 Project Structure
 
 ```
 food-detection-app/
-│
-├── 🖥️ desktop_app/              ← FLUTTER DESKTOP UYGULAMASI
+├── 🖥️ desktop_app/              ← Flutter Desktop App (Windows)
 │   ├── lib/
 │   │   ├── database/            ← SQLite database
 │   │   ├── services/            ← Firebase, Sync, Detection
-│   │   ├── screens/             ← Login, Dashboard
-│   │   └── main.dart
+│   │   └── screens/             ← Login, Dashboard
 │   └── pubspec.yaml
 │
-├── 🔍 detection_service/        ← PYTHON YOLO SERVİSİ (Otomatik Başlar)
-│   ├── main.py
+├── 🔍 detection_service/        ← Python YOLO Detection API
+│   ├── main.py                  ← FastAPI server (port 8000)
 │   └── requirements.txt
 │
-├── 📱 mobile/                   ← FLUTTER MOBİL APP
-│   └── food_detection_flutter/  ← Uzak sunucu ile çalışır
+├── 📱 food_detection_flutter/   ← Flutter Mobile App (Android)
+│   ├── lib/
+│   └── android/
 │
-├── 🔗 shared/                   ← ORTAK KAYNAKLAR
-│   ├── firebase_credentials.json
-│   └── model/best.pt
+├── 🔗 shared/                   ← Shared Resources
+│   ├── firebase_credentials.json.template
+│   └── model/best.pt           ← YOLO model (not in repo)
 │
-└── 🚀 START_DESKTOP_APP.bat     ← Tek tıkla başlat
+├── START_DESKTOP_APP.bat        ← Quick start for Windows
+└── START_DETECTION_SERVICE.bat  ← Manual service start
 ```
 
-## ✨ MİMARİ
+## ✨ Features
 
-### Desktop App (Windows)
-- **Flutter Desktop**: Tam fonksiyonel admin paneli
-- **SQLite**: Yerel veritabanı (offline)
-- **Firebase**: Cloud sync (online)
-- **Python Detection**: Otomatik arka planda başlar (**terminal görünmez**)
+- **AI Food Detection**: YOLOv8 powered real-time food recognition
+- **Offline-First**: Works without internet, syncs when online
+- **Cross-Platform**: Windows desktop + Android mobile
+- **Firebase Integration**: Cloud sync and authentication
+- **Admin Panel**: Full user and record management (Desktop)
 
-### Mobile App
-- **Flutter Mobile**: Uzak sunucuya bağlanır
-- **Detection Service**: Uzaktaki API'yi kullanır
+## 🚀 Quick Start
 
-## 🚀 KULLANIM
+### Prerequisites
 
-### Basit Başlatma (Önerilen)
+- **Python 3.8+** with pip
+- **Flutter 3.0+** with Windows desktop support
+- **Firebase Project** (for cloud features)
+
+### 1. Clone & Setup
 
 ```bash
-# Tek tıkla başlat:
-START_DESKTOP_APP.bat
+git clone https://github.com/YOUR_USERNAME/food-detection-app.git
+cd food-detection-app
 ```
 
-> ✅ Detection service otomatik arka planda başlar
-> ✅ Terminal penceresi görünmez
-> ✅ Kullanıcı hiçbir şey yapmasına gerek yok
+### 2. Install Dependencies
 
-### Manuel Başlatma (Geliştirme)
-
+**Detection Service (Python):**
 ```bash
-cd desktop_app
-flutter run -d windows
-```
-
-### İlk Kurulum
-
-```bash
-# 1. Detection service dependencies
 cd detection_service
 pip install -r requirements.txt
+```
 
-# 2. Desktop app dependencies
-cd ../desktop_app
+**Desktop App (Flutter):**
+```bash
+cd desktop_app
 flutter pub get
 ```
 
-## 🔐 GİRİŞ
-
-**Varsayılan Admin:**
-- Email: `admin@example.com`
-- Şifre: `admin123`
-
-> Login ekranında giriş yapın. Detection service otomatik başlayacak.
-
-## 📊 ÖZELLİKLER
-
-- ✅ **Otomatik Başlatma**: Detection service kendiliğinden başlar
-- ✅ **Terminal Yok**: Python arka planda gizli çalışır
-- ✅ **Offline-First**: İnternet olmadan çalışır
-- ✅ **Auto-Sync**: Firebase ile otomatik senkronizasyon
-- ✅ **Dashboard**: İstatistikler ve servis durumu
-- ✅ **Kullanıcı Yönetimi**: Kullanıcı listesi
-- ✅ **Kayıtlar**: Yemek tespit kayıtları
-- ✅ **İtirazlar**: Kullanıcı itirazları
-
-## 🔧 TEKNİK DETAYLAR
-
-### Detection Service
-- **Port**: 8000 (localhost)
-- **Başlatma**: Otomatik (pythonw.exe - terminal yok)
-- **Durum**: Desktop app içinden kontrol edilebilir
-
-### Database
-```
-%USERPROFILE%\Documents\food_detection_app\local_data.db
-```
-
-Tablolar:
-- `users` - Kullanıcılar
-- `food_records` - Yemek kayıtları
-- `food_objections` - İtirazlar
-- `sync_queue` - Senkronizasyon
-
-### Firebase
-Credentials dosyası:
-```
-shared/firebase_credentials.json
-```
-
-## 📱 MOBİL UYGULAMA
-
-Mobil app **uzak sunucu** ile çalışır:
-
+**Mobile App (Flutter):**
 ```bash
-cd mobile/food_detection_flutter
-flutter run
+cd food_detection_flutter
+flutter pub get
 ```
 
-> Mobil uygulama desktop detection service'i kullanmaz, kendi remote API'sini kullanır.
+### 3. Setup Firebase (Optional - for cloud sync)
 
-## 🏗️ GELİŞTİRME
+1. Copy the template:
+   ```bash
+   cp shared/firebase_credentials.json.template shared/firebase_credentials.json
+   ```
+2. Replace placeholder values with your Firebase service account credentials
 
-### Debug Mode
-```bash
-cd desktop_app
-flutter run -d windows
-```
+### 4. Add YOLO Model
 
-### Release Build
-```bash
-cd desktop_app
-flutter build windows --release
-```
-
-EXE:
-```
-desktop_app/build/windows/x64/runner/Release/desktop_app.exe
-```
-
-## 🐛 SORUN ÇÖZME
-
-### Detection service çalışmıyor?
-
-1. **Python kurulu mu?**
-```bash
-python --version
-```
-
-2. **Dependencies yüklü mü?**
-```bash
-cd detection_service
-pip install -r requirements.txt
-```
-
-3. **Model dosyası var mı?**
+Download or train a YOLOv8 model and place it at:
 ```
 shared/model/best.pt
 ```
 
-4. **Manuel başlatma**
+### 5. Run the Application
+
+**Windows Desktop (Recommended):**
+```bash
+# Option 1: Double-click START_DESKTOP_APP.bat
+
+# Option 2: Manual
+cd desktop_app
+flutter run -d windows
+```
+
+> ✅ Detection service starts automatically in background
+
+**Android Mobile:**
+```bash
+cd food_detection_flutter
+flutter run
+```
+
+## 🔐 Default Login
+
+| Role  | Email               | Password   |
+|-------|---------------------|------------|
+| Admin | admin@example.com   | admin123   |
+
+## 💻 Development
+
+### Debug Mode
+
+```bash
+# Desktop
+cd desktop_app
+flutter run -d windows
+
+# Mobile
+cd food_detection_flutter
+flutter run
+```
+
+### Production Build
+
+```bash
+# Windows EXE
+cd desktop_app
+flutter build windows --release
+# Output: build/windows/x64/runner/Release/
+
+# Android APK
+cd food_detection_flutter
+flutter build apk --release
+# Output: build/app/outputs/flutter-apk/app-release.apk
+```
+
+### Manual Detection Service
+
 ```bash
 cd detection_service
 python main.py
+# Runs on http://localhost:8000
 ```
 
-### Desktop app başlamıyor?
+## 🗄️ Database
+
+**Local SQLite** (Desktop):
+```
+%USERPROFILE%\Documents\food_detection_app\local_data.db
+```
+
+**Tables:**
+- `users` - User accounts
+- `food_records` - Detection records
+- `food_objections` - User objections
+- `sync_queue` - Pending sync items
+
+## 🔧 Troubleshooting
+
+<details>
+<summary><strong>Detection service not working?</strong></summary>
+
+1. Check Python installation: `python --version`
+2. Install dependencies: `pip install -r detection_service/requirements.txt`
+3. Verify model exists: `shared/model/best.pt`
+4. Run manually: `python detection_service/main.py`
+
+</details>
+
+<details>
+<summary><strong>Flutter app not starting?</strong></summary>
 
 ```bash
-cd desktop_app
 flutter clean
 flutter pub get
 flutter run -d windows
 ```
 
-### Firebase bağlanamıyor?
+</details>
 
-```
-shared/firebase_credentials.json
-```
-Dosyasını kontrol edin.
+<details>
+<summary><strong>Firebase connection issues?</strong></summary>
 
-## 🎯 FARKLAR
+- Verify `shared/firebase_credentials.json` exists and is valid
+- Check internet connection
+- App works offline, sync resumes when online
 
-### Önceki Versiyon ❌
-- Flask backend gerekiyordu
-- Tarayıcıda açılıyordu
-- Manuel başlatma gerekiyordu
-- Terminal pencereleri açılıyordu
+</details>
 
-### Yeni Versiyon ✅
-- Flask yok, sadece Flutter
-- Tarayıcı gerekmiyor
-- Otomatik başlatma
-- Terminal görünmüyor
-- Tek EXE dosyası
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Desktop App | Flutter Windows |
+| Mobile App | Flutter Android |
+| Detection API | Python + FastAPI + YOLOv8 |
+| Local Database | SQLite |
+| Cloud Database | Firebase Firestore |
+| Authentication | Firebase Auth |
+
+## 📄 License
+
+This project is for educational purposes.
 
 ---
 
-**v2.1** - Seamless Desktop Experience (No Terminal Windows)
+**Made with ❤️ using Flutter & YOLOv8**

@@ -1,4 +1,6 @@
-# Geçici dosyalar
+# ===========================
+# Python
+# ===========================
 __pycache__/
 *.pyc
 *.pyo
@@ -10,45 +12,95 @@ __pycache__/
 dist/
 build/
 *.spec
+.venv/
+venv/
+env/
+.env
 
-# Veritabanı
+# ===========================
+# Database
+# ===========================
 *.db
 local_data.db
 
-# Firebase credentials
+# ===========================
+# Firebase Credentials (GİZLİ)
+# ===========================
 firebase_credentials.json
+**/firebase_credentials.json
+**/google-services.json
+**/GoogleService-Info.plist
 
-# Uploads
+# ===========================
+# Uploads / Local Storage
+# ===========================
 uploads/*
 !uploads/.gitkeep
+local_storage/*
+!local_storage/.gitkeep
 
-# IDE
+# ===========================
+# IDE / Editor
+# ===========================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+*.iml
 
-# OS
+# ===========================
+# OS Generated Files
+# ===========================
 .DS_Store
 Thumbs.db
 desktop.ini
+ehthumbs.db
+*.bak
 
+# ===========================
 # Logs
+# ===========================
 *.log
 
-# Model dosyaları (boyut nedeniyle)
+# ===========================
+# Model Dosyaları (Büyük boyut)
+# ===========================
 *.pt
 *.onnx
 *.weights
 
-# Flutter
-mobile/food_detection_flutter/.dart_tool/
-mobile/food_detection_flutter/.flutter-plugins
-mobile/food_detection_flutter/.flutter-plugins-dependencies
-mobile/food_detection_flutter/.packages
-mobile/food_detection_flutter/build/
-mobile/food_detection_flutter/ios/Pods/
-mobile/food_detection_flutter/ios/.symlinks/
-mobile/food_detection_flutter/android/.gradle/
-mobile/food_detection_flutter/android/app/google-services.json
+# ===========================
+# Flutter / Dart - Genel
+# ===========================
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.packages
+**/build/
+**/.metadata
+**/pubspec.lock
+
+# Flutter iOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+
+# Flutter Android
+**/android/.gradle/
+**/android/local.properties
+**/android/key.properties
+**/*.keystore
+**/*.jks
+
+# Flutter macOS
+**/macos/Pods/
+**/macos/.symlinks/
+
+# ===========================
+# Diğer
+# ===========================
+.gradle/
+*.class
+*.jar
